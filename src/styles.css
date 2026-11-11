@@ -1,11 +1,29 @@
 @import "tailwindcss";
 
+:root {
+  --color-bg-primary: #1E293B;
+  --color-bg-deep: #0F172A;
+  --color-surface: #334155;
+  --color-accent: #F59E0B;
+  --color-text-primary: #FFFFFF;
+  --color-text-muted: #94A3B8;
+}
+
 @layer base {
   html,
   body {
     font-family: 'Inter', 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #1E293B;
-    color: #FFFFFF;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    overscroll-behavior: contain;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  a,
+  input,
+  select {
+    touch-action: manipulation;
   }
 }
 
@@ -14,14 +32,23 @@
   font-feature-settings: "tnum" 1;
 }
 
+/* Pola ornamen geometris Islam halus untuk latar belakang Kiosk */
+.bg-islamic-pattern {
+  background-color: #1E293B;
+  background-image: radial-gradient(rgba(245, 158, 11, 0.07) 1px, transparent 1px),
+    radial-gradient(rgba(148, 163, 184, 0.05) 1px, #1E293B 1px);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
+}
+
 @keyframes softPulse {
   0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 35px rgba(245, 158, 11, 0.35);
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.28), inset 0 0 20px rgba(245, 158, 11, 0.08);
+    border-color: rgba(245, 158, 11, 0.85);
   }
   50% {
-    transform: scale(1.03);
-    box-shadow: 0 0 65px rgba(245, 158, 11, 0.75);
+    box-shadow: 0 0 65px rgba(245, 158, 11, 0.65), inset 0 0 35px rgba(245, 158, 11, 0.18);
+    border-color: rgba(251, 191, 36, 1);
   }
 }
 
@@ -41,7 +68,12 @@
 .animate-marquee {
   display: inline-flex;
   white-space: nowrap;
-  animation: marqueeScroll 38s linear infinite;
+  animation: marqueeScroll 40s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee:focus-within {
+  animation-play-state: paused;
 }
 
 @keyframes fadeInSmooth {
@@ -54,5 +86,13 @@
 }
 
 .animate-fade-in {
-  animation: fadeInSmooth 0.8s ease-out forwards;
+  animation: fadeInSmooth 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Hormati preferensi aksesibilitas gerakan terkurangi (UI/UX Pro Max) */
+@media (prefers-reduced-motion: reduce) {
+  .animate-soft-pulse,
+  .animate-fade-in {
+    animation: none !important;
+  }
 }
