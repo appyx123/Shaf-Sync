@@ -1,0 +1,17 @@
+[Unit]
+Description=ShafSync Local Appliance Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/shafsync
+ExecStart=/usr/bin/env node /opt/shafsync/server/index.js
+Restart=always
+RestartSec=5
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=SHAFSYNC_DATA_DIR=/opt/shafsync/data
+
+[Install]
+WantedBy=multi-user.target
